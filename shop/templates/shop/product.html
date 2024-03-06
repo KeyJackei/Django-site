@@ -1,0 +1,52 @@
+{% extends 'shop/base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="container-fluid py-5 mt-10">
+            <div class="container py-5">
+                <div class="row g-4 mb-5">
+                    <div class="col-lg-8 col-xl-9">
+                        <div class="row g-4">
+                            <div class="col-lg-6">
+                                <div class="border rounded">
+                                    <a href="#">
+                                        <img src="{{ product.image.url }}" class="img-fluid rounded" alt="Image">
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <h4 class="fw-bold mb-3">{{product.name}}</h4>
+                                <p class="mb-3">Категории: {% for category in product.category.all %} {{ category.name }}{% if not forloop.last %}, {% endif %} {% endfor %}</p>
+                                <h5 class="fw-bold mb-3">{{ product.price }} ₽</h5>
+                                <p class="mb-4">{{product.short_description}}</p>
+                                <div class="px-2">
+                                            <div class="row g-4">
+                                                <div class="col-6">
+                                                    {% for key, value in product.attributes.items %}
+                                                        <div class="row bg-light align-items-center text-center justify-content-center py-2">
+                                                            <div class="col-6">
+                                                                <p class="mb-0">{{key}}</p>
+                                                            </div>
+                                                            <div class="col-6">
+                                                                <p class="mb-0">{{value}}</p>
+                                                            </div>
+                                                        </div>
+                                                    {% endfor %}
+                                                </div>
+                                            </div>
+                                        </div>
+                                <a href="{% url 'basket_add' product.id %}" class="btn border border-secondary rounded-pill px-4 py-2 mt-3 mb-4 text-primary"><i class="fa fa-shopping-bag me-2 text-primary"></i> Добавить в корзину</a>
+                            </div>
+                            <div class="col-lg-12">
+                                <nav>
+                                    <div class="nav nav-tabs mb-3">
+                                        <button class="nav-link active border-white border-bottom-0" type="button" role="tab"
+                                            id="nav-about-tab" data-bs-toggle="tab" data-bs-target="#nav-about"
+                                            aria-controls="nav-about" aria-selected="true">Описание</button>
+                                    </div>
+                                </nav>
+                                <div class="tab-content mb-5">
+                                    <div class="tab-pane active" id="nav-about" role="tabpanel" aria-labelledby="nav-about-tab">
+                                        <p>{{product.description}} </p>
+                                    </div>
+{% endblock %}
